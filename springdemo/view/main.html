@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试系统</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="./css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="./css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="js/axios.js"></script>
+    <script src="js/vue.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+        #pagination {
+            float: right;
+            margin-right: 100px;
+        }
+
+        .textarea-inherit {
+            width: 100%;
+            overflow: auto;
+            word-break: break-all;
+        / / 解决兼容问题
+        }
+    </style>
+
+</head>
+<body>
+
+<div id="wrapper">
+
+    <!-- 标题栏-->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">测试管理</a>
+        </div>
+
+        <!--导航部分-->
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li><a href="" class="active"><i class="fa fa-edit fa-fw"></i>发送邮件</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--页面右侧部分-->
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">发送邮件</h1>
+            </div>
+        </div>
+
+        <!-- 查询表单-->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form class="form-inline" id="app" method="post">
+                    <div class="form-group">
+                        <label for="to">收件人</label>
+                        <input type="text" class="form-control" id="to" name="to" v-model="mail.to">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">主题</label>
+                        <input type="text" class="form-control" id="subject" name="subject" v-model="mail.subject">
+                    </div>
+                    <div class="form-group">
+                        <input type="file" name="file" enctype="multipart/form-data" v-model="mail.file"/>
+                    </div>
+                    <button class="btn btn-primary" id="searchBtn" @click="send">发送</button>
+                    <button class="btn btn-primary">取消</button>
+                    <div class="row" id="showlist">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">发送内容</div>
+                                <table class="table table-bordered table-striped">
+                                    <tbody>
+                                    <textarea rows="25" class="textarea-inherit" name="context" v-model="mail.context"></textarea>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<!-- jQuery -->
+<script src="./js/jquery.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="./js/bootstrap.min.js"></script>
+<!--必须要引入到jquery的下面-->
+<script src="./js/jquery.pagination.js"></script>
+<script>
+    let vm = new Vue({
+      el: "#app",
+      data: {
+          mail:{
+             to: "",
+             subject: "",
+             context: "",
+              file: "",
+          },
+      },
+        methods: {
+            send(){
+                const options = {
+                    method : 'put',
+                    headers: {
+                        'context-type' : 'application/json;charset=utf-8',
+                    },
+                    data: JSON.stringify(this.mail),
+                    url: 'http://localhost:8080/mail',
+                }
+                axios(options).then(result =>{
+                    alert(result)
+                })
+            },
+        }
+
+    })
+</script>
+
+
+</body>
+</html>

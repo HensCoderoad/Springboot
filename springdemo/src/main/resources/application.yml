@@ -1,0 +1,9 @@
+spring:
+  mail:
+    username: 15915106210@163.com
+    password: wangyi123
+    host: smtp.163.com
+  servlet:
+    multipart:
+      max-request-size: 10MB
+      max-file-size: 10MB
