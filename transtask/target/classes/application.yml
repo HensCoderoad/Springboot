@@ -1,0 +1,11 @@
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql:///boot?serverTimezone=UTC&characterEncoding=UTF8&useSSL=false
+  mail:
+    username: 15915106210@163.com
+    password: wangyi123
+    host: smtp.163.com
